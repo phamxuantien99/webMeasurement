@@ -65,7 +65,7 @@ const ConfirmSurvey = () => {
       queryKey: ["dataSurveyReportConfirm", currentPage, debouncedSearchValue],
       queryFn: () =>
         fetchDataSurveyReport(currentPage, "confirm", debouncedSearchValue),
-      keepPreviousData: true,
+      // keepPreviousData: true,
       refetchOnWindowFocus: false,
     });
 

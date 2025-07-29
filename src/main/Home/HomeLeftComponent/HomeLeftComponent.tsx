@@ -1,9 +1,8 @@
 import { useState } from "react";
+import { ToastContainer } from "react-toastify";
 import apiAxios from "../../../api/api";
 import logo1 from "../../../assets/images/logo1.png";
 import { api } from "../../service/api/endpoint";
-import { ToastContainer } from "react-toastify";
-import Select from "react-select/base";
 
 const HomeLeftComponent = () => {
   const [formData, setFormData] = useState({

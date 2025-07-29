@@ -168,10 +168,10 @@ const ProjectCodeMeasurement = () => {
     return res.data;
   };
 
-  const { data, isLoading, isFetching, refetch } = useQuery({
+  const { data, isLoading, isFetching } = useQuery({
     queryKey: ["projectList", currentPage, debouncedSearchValue],
     queryFn: fetchProjectData,
-    keepPreviousData: true,
+    // keepPreviousData: true,
     refetchOnWindowFocus: false,
   });
 

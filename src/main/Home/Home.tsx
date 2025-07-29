@@ -1,5 +1,4 @@
 import "react-datepicker/dist/react-datepicker.css";
-import HomeLeftComponent from "./HomeLeftComponent/HomeLeftComponent";
 import HomeRightComponent from "./HomeRightComponent/HomeRightComponent";
 
 const Home = () => {

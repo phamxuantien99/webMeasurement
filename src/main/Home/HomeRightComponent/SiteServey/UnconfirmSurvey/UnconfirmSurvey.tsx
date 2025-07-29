@@ -69,7 +69,7 @@ const UnconfirmSurvey = () => {
       ],
       queryFn: () =>
         fetchDataSurveyReport(currentPage, "unconfirmed", debouncedSearchValue),
-      keepPreviousData: true,
+      // keepPreviousData: true,
       refetchOnWindowFocus: false,
     });
 

@@ -71,7 +71,7 @@ const ConfirmMeasurement = () => {
     ],
     queryFn: () =>
       fetchDataMeasurementReport(currentPage, "confirm", debouncedSearchValue),
-    keepPreviousData: true,
+    // keepPreviousData: true, // Removed because it's not a valid option in this version
     refetchOnWindowFocus: false,
   });
 
@@ -91,12 +91,16 @@ const ConfirmMeasurement = () => {
   const handleSubmit = async (serial_number: string) => {
     try {
       setIsSubmitting(true);
-      const response = await apiAxios.put(
+      await apiAxios.put(
         `https://ec2api.deltatech-backend.com/api/v1/measurement/measurement_report_serial/{measurement_report_id}?measurement_request_id=${selectedItem}&serial_number=${serial_number}`,
         {}
       );
-      queryClient.invalidateQueries("dataMeasurementReportConfirm");
-      queryClient.invalidateQueries("dataListSummaryMeasurement");
+      queryClient.invalidateQueries({
+        queryKey: ["dataMeasurementReportConfirm"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["dataListSummaryMeasurement"],
+      });
       setIsOpen(false);
     } catch (error) {
       console.error("Error fetching data:", error);

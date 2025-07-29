@@ -1,13 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { CSSProperties, useMemo, useRef } from "react";
 import { FcPrint } from "react-icons/fc";
-import { GoDotFill } from "react-icons/go";
 import { useParams } from "react-router-dom";
 import { FadeLoader } from "react-spinners";
 import ReactToPrint from "react-to-print";
 import apiAxios from "../../../../../../api/api";
 import logo2 from "../../../../../../assets/images/logo2.png";
-import pictureSummary from "../../../../../../assets/images/pictureSummary.png";
 import { api } from "../../../../../service/api/endpoint";
 import "./SummarySurvey.css";
 const override: CSSProperties = {
@@ -45,7 +43,7 @@ function SummarySurvey() {
   const filteredData = useMemo(() => {
     if (!dataSurveyReport || !dataSurveyReport.founds) return [];
     return dataSurveyReport.founds.filter(
-      (item) => item.project_number === project_number
+      (item: any) => item.project_number === project_number
     );
   }, [isLoadingDataSurveyReport]);
 

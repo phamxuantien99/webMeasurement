@@ -16,7 +16,11 @@ export const useGetListMeasurementReport = (debouncedSearchValue?: string) => {
   ) => {
     try {
       const response = await apiAxios.get(
-        api.getMeasurementReport(currentPage, status, searchValue),
+        api.getMeasurementReport(
+          currentPage as number,
+          status as string,
+          searchValue as string
+        ),
         {
           signal, // Truyền signal vào axios để hủy yêu cầu khi cần
         }
@@ -33,7 +37,12 @@ export const useGetListMeasurementReport = (debouncedSearchValue?: string) => {
       if (axios.isAxiosError(error)) {
         // Kiểm tra nếu lỗi là do axios
         console.error("Axios error:", error.response?.data || error.message);
-      } else if (error.name === "AbortError") {
+      } else if (
+        typeof error === "object" &&
+        error !== null &&
+        "name" in error &&
+        (error as { name: string }).name === "AbortError"
+      ) {
         // Xử lý khi yêu cầu bị hủy
         console.log("API request was canceled");
       }
@@ -51,7 +60,7 @@ export const useGetListMeasurementReport = (debouncedSearchValue?: string) => {
     hasNextPage: hasNextPageMeasurementReport,
   } = useInfiniteQuery({
     queryKey: ["listMeasurementReport", debouncedSearchValue],
-    queryFn: async ({ currentPage = 1 }) => {
+    queryFn: async ({ pageParam = 1 }) => {
       if (controllerRef.current) {
         controllerRef.current.abort();
       }
@@ -59,7 +68,7 @@ export const useGetListMeasurementReport = (debouncedSearchValue?: string) => {
       controllerRef.current = new AbortController();
 
       return fetchListMeasurementReport(
-        currentPage,
+        pageParam,
         "confirm",
         debouncedSearchValue,
         controllerRef.current.signal
@@ -70,13 +79,6 @@ export const useGetListMeasurementReport = (debouncedSearchValue?: string) => {
       lastPage?.hasMore ? lastPage.nextPage : undefined,
     initialPageParam: 1,
     // enabled: selectedButtonProcess === 'unconfirmed',
-    onError: (error) => {
-      // Xử lý khi có lỗi
-      console.error("API request failed: ", error);
-    },
-    onSettled: () => {
-      // Có thể dùng để reset các trạng thái sau khi request hoàn thành
-    },
   });
 
   return {

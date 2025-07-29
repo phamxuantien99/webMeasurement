@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { useRef } from "react";
 import axios from "axios";
@@ -33,7 +33,12 @@ export const useGetListProjectCodeHaveSurveyReport = (
       if (axios.isAxiosError(error)) {
         // Kiểm tra nếu lỗi là do axios
         console.error("Axios error:", error.response?.data || error.message);
-      } else if (error.name === "AbortError") {
+      } else if (
+        typeof error === "object" &&
+        error !== null &&
+        "name" in error &&
+        (error as { name?: string }).name === "AbortError"
+      ) {
         // Xử lý khi yêu cầu bị hủy
         console.log("API request was canceled");
       }
@@ -69,13 +74,6 @@ export const useGetListProjectCodeHaveSurveyReport = (
       lastPage?.hasMore ? lastPage.nextPage : undefined,
     initialPageParam: 1,
     // enabled: selectedButtonProcess === 'unconfirmed',
-    onError: (error) => {
-      // Xử lý khi có lỗi
-      console.error("API request failed: ", error);
-    },
-    onSettled: () => {
-      // Có thể dùng để reset các trạng thái sau khi request hoàn thành
-    },
   });
 
   return {

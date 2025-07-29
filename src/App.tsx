@@ -1,8 +1,8 @@
 import React, { CSSProperties, Suspense, useEffect } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { FadeLoader } from "react-spinners";
 import "./App.css";
 import withAuth from "./main/com/RequiredAuth";
-import { FadeLoader } from "react-spinners";
 
 const Home = React.lazy(() => import("./main/Home/Home"));
 const Login = React.lazy(() => import("./main/Login/Login"));
@@ -31,12 +31,12 @@ const FormSummarySurvey = React.lazy(
     )
 );
 
-const FormSummarySurveyReportUnconfirm = React.lazy(
-  () =>
-    import(
-      "./main/Home/HomeRightComponent/SiteServey/UnconfirmSurvey/SummarySurveyUnconfirm/SummarySurveyUnconfirm"
-    )
-);
+// const FormSummarySurveyReportUnconfirm = React.lazy(
+//   () =>
+//     import(
+//       "./main/Home/HomeRightComponent/SiteServey/UnconfirmSurvey/SummarySurveyUnconfirm/SummarySurveyUnconfirm"
+//     )
+// );
 
 const override: CSSProperties = {
   display: "flex",

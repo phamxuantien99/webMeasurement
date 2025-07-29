@@ -90,14 +90,19 @@ const UnconfirmMeasurement = () => {
 
     try {
       setIsSubmitting(true);
-      const response = await apiAxios.put(
+      await apiAxios.put(
         `https://ec2api.deltatech-backend.com/api/v1/measurement/measurement_report/{measurement_report_id}?measurement_request_id=${encodeURIComponent(
           selectedId
         )}&project_code=${encodeURIComponent(project_code)}`,
         {}
       );
-      queryClient.invalidateQueries("dataMeasurementReportUnconfirmed");
-      queryClient.invalidateQueries("dataTotalProduct");
+      queryClient.invalidateQueries({
+        queryKey: ["dataMeasurementReportUnconfirmed"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["dataTotalProduct"],
+      });
+
       setIsOpen(false);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -139,7 +144,7 @@ const UnconfirmMeasurement = () => {
         debouncedSearchValue
       ),
     refetchOnWindowFocus: false,
-    keepPreviousData: true,
+    // keepPreviousData: true,
   });
 
   const totalCount = dataMeasurementReport?.search_options?.total_count || 0;

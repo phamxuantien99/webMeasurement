@@ -51,7 +51,7 @@ const ProjectCode = () => {
   } = useQuery({
     queryKey: ["dataTotalProduct", currentPage, debouncedSearchValue],
     queryFn: fetchDataLogistic,
-    keepPreviousData: true,
+    // keepPreviousData: true,
     refetchOnWindowFocus: false,
   });
 
